@@ -21,10 +21,30 @@ open class ZFBanner: UIView {
     private var timer: Timer!
     private var autoScroll: Bool = true
     
-    open var autoScrollTimeInterval: TimeInterval = 3
-    open var placeholder: UIImage?
+    private var _autoScrollTimeInterval: TimeInterval = 3
+    private var _placeholder: UIImage?
+    private var _delegate: ZFBannerDelegate?
     
-    open var delegate: ZFBannerDelegate?
+    @objc open var autoScrollTimeInterval: TimeInterval {
+        get {return _autoScrollTimeInterval}
+        set {
+            _autoScrollTimeInterval = newValue
+        }
+    }
+    
+    @objc open var placeholder: UIImage? {
+        get {return _placeholder}
+        set {
+            _placeholder = newValue
+        }
+    }
+    
+    @objc open var delegate: ZFBannerDelegate? {
+        get { return _delegate}
+        set {
+            _delegate = newValue
+        }
+    }
     open var bannerIndexClickBlock: ((_ index: Int, _ item: ZFBannerItem) -> Void)?
     
     private var items = [ZFBannerItem]()
