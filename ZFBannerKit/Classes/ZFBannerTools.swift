@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import CommonCrypto
 
-extension UIImageView {
+public extension UIImageView {
     
     func zf_setImage(url: String, placeholder: UIImage?) {
         guard let fileDirec = zf_cacheDirectory() else {return}

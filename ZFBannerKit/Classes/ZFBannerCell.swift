@@ -33,11 +33,11 @@ class ZFBannerCell: UICollectionViewCell {
     
 }
 
-class ZFBannerItem: NSObject {
-    var imageName: String!
-    var userInfo: Any?
+open class ZFBannerItem: NSObject {
+    open var imageName: String!
+    open var userInfo: Any?
     
-    var networkImage: Bool {
+    open var networkImage: Bool {
         get {
             return imageName.hasPrefix("https://") || imageName.hasPrefix("http://")
         }

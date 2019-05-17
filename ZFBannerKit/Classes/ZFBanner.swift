@@ -11,21 +11,21 @@ import UIKit
 
 fileprivate let bannerHeight: CGFloat = 200
 
-@objc protocol ZFBannerDelegate {
+@objc public protocol ZFBannerDelegate {
     
     @objc optional func bannerIndexDidClicked(at index: Int, item: ZFBannerItem)
 }
 
-class ZFBanner: UIView {
+open class ZFBanner: UIView {
     
     private var timer: Timer!
     private var autoScroll: Bool = true
     
-    var autoScrollTimeInterval: TimeInterval = 3
-    var placeholder: UIImage?
+    open var autoScrollTimeInterval: TimeInterval = 3
+    open var placeholder: UIImage?
     
-    var delegate: ZFBannerDelegate?
-    var bannerIndexClickBlock: ((_ index: Int, _ item: ZFBannerItem) -> Void)?
+    open var delegate: ZFBannerDelegate?
+    open var bannerIndexClickBlock: ((_ index: Int, _ item: ZFBannerItem) -> Void)?
     
     private var items = [ZFBannerItem]()
     private var itemCount: Int {
@@ -62,21 +62,21 @@ class ZFBanner: UIView {
         return collection
     }()
     
-    override init(frame: CGRect) {
+    override public init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    override func awakeFromNib() {
+    override open func awakeFromNib() {
         super.awakeFromNib()
         setupUI()
     }
     
-    override func layoutSubviews() {
+    override open func layoutSubviews() {
         super.layoutSubviews()
         collectionView.frame = self.bounds
         layout.itemSize = self.bounds.size
@@ -120,7 +120,7 @@ class ZFBanner: UIView {
         }
     }
     
-    func loadImageSources(images: [ZFBannerItem], shouldAutoScroll: Bool = true, timeInterval: TimeInterval = 3) {
+    public func loadImageSources(images: [ZFBannerItem], shouldAutoScroll: Bool = true, timeInterval: TimeInterval = 3) {
         items.removeAll()
         items = images
         autoScroll = shouldAutoScroll
@@ -143,14 +143,14 @@ class ZFBanner: UIView {
 
 extension ZFBanner: UICollectionViewDelegate {
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let item = items[indexPath.item % itemCount]
         let index = indexPath.item % itemCount
         delegate?.bannerIndexDidClicked?(at: index, item: item)
         bannerIndexClickBlock?(index,item)
     }
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offsetX = Int(scrollView.contentOffset.x)
         let width = Int(layout.itemSize.width)
         if offsetX % width == 0 {
@@ -165,21 +165,21 @@ extension ZFBanner: UICollectionViewDelegate {
         }
     }
     
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+    public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         removeTimer()
     }
     
-    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+    public func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         addTimer()
     }
     
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+    public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let offsetX = Int(scrollView.contentOffset.x)
         let width = Int(layout.itemSize.width)
         pageControl.currentPage = (offsetX / width) % itemCount
     }
     
-    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+    public func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         let offsetX = Int(scrollView.contentOffset.x)
         let width = Int(layout.itemSize.width)
         pageControl.currentPage = (offsetX / width) % itemCount
@@ -197,15 +197,15 @@ extension ZFBanner: UICollectionViewDelegate {
 }
 
 extension ZFBanner: UICollectionViewDataSource {
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
+    public func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return itemCount * 3
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ZFBannerCell", for: indexPath) as! ZFBannerCell
         let item = items[indexPath.item % itemCount]
         if item.networkImage {
@@ -221,7 +221,7 @@ extension ZFBanner: UICollectionViewDataSource {
 
 //MARK: clear resource
 extension ZFBanner {
-    class func zf_cacheSize() -> Double{
+    open class func zf_cacheSize() -> Double{
         guard let fileDir = zf_cacheDirectory() else {return 0}
         let fm = FileManager.default
         
@@ -237,7 +237,7 @@ extension ZFBanner {
         return 0
     }
     
-    class func zf_clearCache(complete:((_ competed: Bool) -> Void)?) {
+    open class func zf_clearCache(complete:((_ competed: Bool) -> Void)?) {
         guard let fileDir = zf_cacheDirectory() else {
             complete?(false)
             return
