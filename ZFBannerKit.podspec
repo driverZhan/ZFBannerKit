@@ -6,7 +6,7 @@ Pod::Spec.new do |spec|
   spec.summary      = "轮播图，同时支持本地图片与网络图片,网络图片自动缓存，提供清理缓存api"
 
   spec.homepage     = "https://github.com/driverZhan/ZFBannerKit"
-  spec.license      = { :type => "MIT", :file => "FILE_LICENSE" }
+  spec.license      = { :type => "MIT", :file => "LICENSE" }
 
   spec.source       = { :git => "https://github.com/driverZhan/ZFBannerKit.git", :tag => spec.version.to_s }
 
