@@ -34,7 +34,8 @@ class ViewController: UIViewController {
         
         images.append(last)
         banner.loadImageSources(images: images)
-        
+        banner.currentPageIndicatorTintColor = UIColor.green
+        banner.pageIndicatorTintColor = UIColor.red
         banner.delegate = self
     }
     

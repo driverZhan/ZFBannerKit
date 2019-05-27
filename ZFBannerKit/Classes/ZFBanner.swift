@@ -24,6 +24,8 @@ open class ZFBanner: UIView {
     private var _autoScrollTimeInterval: TimeInterval = 3
     private var _placeholder: UIImage?
     private var _delegate: ZFBannerDelegate?
+    private var _currentPageIndicatorTintColor: UIColor! = nil
+    private var _pageIndicatorTintColor: UIColor! = nil
     
     @objc open var autoScrollTimeInterval: TimeInterval {
         get {return _autoScrollTimeInterval}
@@ -54,11 +56,32 @@ open class ZFBanner: UIView {
         }
     }
     
+    @objc public var currentPageIndicatorTintColor: UIColor {
+        get {
+            return _currentPageIndicatorTintColor
+        }
+        
+        set {
+            _currentPageIndicatorTintColor = newValue
+            pageControl.currentPageIndicatorTintColor = _currentPageIndicatorTintColor
+        }
+        
+    }
+    
+    @objc public var pageIndicatorTintColor: UIColor {
+        get {
+            return _pageIndicatorTintColor
+        }
+        
+        set {
+            _pageIndicatorTintColor = newValue
+            pageControl.pageIndicatorTintColor = _pageIndicatorTintColor
+        }
+    }
+    
     lazy private var pageControl: UIPageControl = {
         let control = UIPageControl()
         control.currentPage = 0
-        //        control.currentPageIndicatorTintColor = UIColor.green
-        //        control.pageIndicatorTintColor = UIColor.orange
         control.hidesForSinglePage = true
         return control
     }()
@@ -140,7 +163,11 @@ open class ZFBanner: UIView {
         }
     }
     
-    public func loadImageSources(images: [ZFBannerItem], shouldAutoScroll: Bool = true, timeInterval: TimeInterval = 3) {
+    @objc public func loadImageSources(images: [ZFBannerItem]) {
+        loadImageSources(images: images, shouldAutoScroll: autoScroll, timeInterval: autoScrollTimeInterval)
+    }
+    
+    @objc public func loadImageSources(images: [ZFBannerItem], shouldAutoScroll: Bool = true, timeInterval: TimeInterval = 3) {
         items.removeAll()
         items = images
         autoScroll = shouldAutoScroll
