@@ -233,11 +233,13 @@ extension ZFBanner: UICollectionViewDelegate {
     }
     
     private func scrollToCenterOrigin() {
+        guard itemCount > 0 else {return}
         let indexPath = IndexPath(row: itemCount, section: 0)
         collectionView.scrollToItem(at: indexPath, at: .left, animated: false)
     }
     
     private func scrollToCenterEnd() {
+        guard itemCount > 0 else {return}
         let indexPath = IndexPath(row: itemCount * 2 - 1, section: 0)
         collectionView.scrollToItem(at: indexPath, at: .left, animated: false)
     }
