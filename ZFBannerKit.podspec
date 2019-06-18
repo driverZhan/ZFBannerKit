@@ -1,7 +1,7 @@
 Pod::Spec.new do |spec|
 
   spec.name         = "ZFBannerKit"
-  spec.version      = "1.0.5"
+  spec.version      = "1.0.6"
   spec.author       = { "YONG ZHAN" => "senyou2012@163.com" }
   spec.summary      = "轮播图，同时支持本地图片与网络图片,网络图片自动缓存，提供清理缓存api"
 
