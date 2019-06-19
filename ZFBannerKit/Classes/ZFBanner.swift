@@ -102,6 +102,7 @@ open class ZFBanner: UIView {
         collection.dataSource = self
         collection.delegate = self
         collection.showsHorizontalScrollIndicator = false
+        collection.backgroundColor = UIColor.clear
         return collection
     }()
     
@@ -124,7 +125,7 @@ open class ZFBanner: UIView {
         collectionView.frame = self.bounds
         layout.itemSize = self.bounds.size
         pageControl.sizeToFit()
-        pageControl.frame = CGRect(x: 0, y: 0, width: pageControl.frame.width, height: pageControl.frame.height)
+        pageControl.frame = CGRect(x: 0, y: 0, width: pageControl.frame.width, height: 37)
         pageControl.center = CGPoint(x: UIScreen.main.bounds.width / 2, y: self.bounds.height - pageControl.frame.size.height / 2)
         
     }
