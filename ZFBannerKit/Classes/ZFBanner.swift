@@ -169,6 +169,7 @@ open class ZFBanner: UIView {
     }
     
     @objc public func loadImageSources(images: [ZFBannerItem], shouldAutoScroll: Bool = true, timeInterval: TimeInterval = 3) {
+        guard images.count > 0 else { return }
         items.removeAll()
         items = images
         autoScroll = shouldAutoScroll
